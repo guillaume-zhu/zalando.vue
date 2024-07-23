@@ -42,6 +42,17 @@ const props = defineProps({
       Nous vous recommandons de choisir une taille au-dessus de celle habituelle.
     </p>
 
+    <!-- size -->
+    <div class="sizes-bloc">
+      <div
+        v-for="(quantity, sizes) in selectedVariant.sizes"
+        :key="sizes"
+        :class="{ outOfStock: quantity === 0 }"
+      >
+        {{ sizes }}
+      </div>
+    </div>
+
     <!-- CART BLOC -->
     <div class="cart-bloc">
       <button>Ajouter au panier</button>
@@ -87,6 +98,29 @@ const props = defineProps({
   background-color: var(--light-grey);
   padding: 20px;
   margin-bottom: 10px;
+}
+
+/* SIZE */
+.sizes-bloc {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.sizes-bloc > div {
+  font-size: 16px;
+  border: 1px solid var(--main-black);
+  padding: 5px;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.outOfStock {
+  opacity: 0.5;
 }
 
 /* CART BLOCK */
