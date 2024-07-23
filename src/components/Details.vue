@@ -11,6 +11,16 @@ const props = defineProps({
 })
 
 // console.log(props.productInfos)
+
+const isVariantSoldOut = (sizes) => {
+  for (const key in sizes) {
+    console.log(sizes[key])
+    if (sizes[key] > 0) {
+      return false
+    }
+  }
+  return true
+}
 </script>
 
 <template>
@@ -37,12 +47,26 @@ const props = defineProps({
       Couleur : <span> {{ selectedVariant.color }}</span>
     </p>
 
+    <!-- IMG BLOC -->
+    <div class="img-bloc">
+      <img
+        v-for="variant in productInfos.variants"
+        :key="variant.id"
+        :src="variant.image.url"
+        :alt="variant.image.alt"
+        :class="{
+          selectedImg: variant.id === selectedVariant.id,
+          outOfStock: isVariantSoldOut(variant.sizes)
+        }"
+      />
+    </div>
+
     <!-- ADVISE -->
     <p class="advise">
       Nous vous recommandons de choisir une taille au-dessus de celle habituelle.
     </p>
 
-    <!-- size -->
+    <!-- SIZE -->
     <div class="sizes-bloc">
       <div
         v-for="(quantity, sizes) in selectedVariant.sizes"
@@ -87,10 +111,28 @@ const props = defineProps({
 /* COLOR */
 .selected-color {
   font-size: 16px;
+  margin-bottom: 10px;
 }
 
 .selected-color span {
   font-weight: normal;
+}
+
+/* IMG BLOC */
+.img-bloc {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.img-bloc img {
+  width: 60px;
+  height: 70px;
+  object-fit: cover;
+}
+
+.selectedImg {
+  border: 2px solid var(--main-black);
 }
 
 /* ADVISE */
