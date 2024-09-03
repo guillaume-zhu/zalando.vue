@@ -1,4 +1,11 @@
-<script setup></script>
+<script setup>
+const props = defineProps({
+  cart: {
+    type: Array,
+    Required: true
+  }
+})
+</script>
 
 <template>
   <header>
@@ -24,6 +31,7 @@
           <font-awesome-icon :icon="['far', 'user']" />
           <font-awesome-icon :icon="['far', 'heart']" />
           <font-awesome-icon :icon="['fas', 'shopping-bag']" />
+          <p class="numOfProduct">{{ cart.length }}</p>
         </nav>
       </div>
     </div>
@@ -90,6 +98,11 @@ nav {
   gap: 10px;
 }
 
+nav:last-of-type {
+  justify-content: flex-end;
+  position: relative;
+}
+
 .headerBottom nav:last-of-type {
   justify-content: flex-end;
 }
@@ -104,5 +117,19 @@ svg {
 svg:hover {
   cursor: pointer;
   border: 2px solid var(--main-black);
+}
+
+.numOfProduct {
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  background-color: var(--main-orange);
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
 }
 </style>

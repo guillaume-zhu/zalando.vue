@@ -9,12 +9,20 @@ import data from './assets/data.json'
 import { reactive, ref } from 'vue'
 
 const productInfos = reactive(data)
-
 const selectedVariant = ref(data.variants[0])
+const cart = reactive([])
+
+const changeVariant = (variant) => {
+  selectedVariant.value = variant
+}
+
+const addToCart = (product) => {
+  cart.push(product)
+}
 </script>
 
 <template>
-  <Header />
+  <Header :cart="cart" />
   <main>
     <div class="container">
       <!-- COLONNE IMAGE -->
@@ -22,7 +30,12 @@ const selectedVariant = ref(data.variants[0])
         <img :src="selectedVariant.image.url" :alt="selectedVariant.image.alt" />
       </div>
 
-      <Details v-bind:productInfos="productInfos" v-bind:selectedVariant="selectedVariant" />
+      <Details
+        v-bind:productInfos="productInfos"
+        v-bind:selectedVariant="selectedVariant"
+        v-on:changeSelectedVariant="changeVariant"
+        @addProductToCart="addToCart"
+      />
     </div>
   </main>
   <Footer />
