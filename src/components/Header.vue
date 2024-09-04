@@ -31,7 +31,7 @@ const props = defineProps({
           <font-awesome-icon :icon="['far', 'user']" />
           <font-awesome-icon :icon="['far', 'heart']" />
           <font-awesome-icon :icon="['fas', 'shopping-bag']" />
-          <p class="numOfProduct">{{ cart.length }}</p>
+          <p v-if="cart.length > 0" class="numOfProduct">{{ cart.length }}</p>
         </nav>
       </div>
     </div>
